@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stefan Serwis | SPA Konsol i Laptopów</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #08080c;
+      --card: #12121a;
+      --accent: #a855f7;
+      --text: #f3f4f6;
+      --muted: #71717a; 
+      --border: rgba(168, 85, 247, 0.2);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+      line-height: 1.6;
+    }
+
+    header {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(8, 8, 12, 0.7), rgba(8, 8, 12, 0.9)), 
+                  url('https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+      filter: blur(4px);
+      transform: scale(1.05);
+    }
+
+    .hero-card {
+      position: relative;
+      z-index: 2;
+      background: rgba(18, 18, 26, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 3rem;
+      max-width: 650px;
+      text-align: center;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 { font-size: 2rem; margin-bottom: 0.5rem; color: #fff; letter-spacing: 1px; }
+    
+    .hero-headline {
+      font-size: 1.1rem; 
+      color: var(--muted); 
+      font-weight: 400; 
+      line-height: 1.4;
+      margin-bottom: 30px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.8rem 1.8rem;
+      border-radius: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      font-size: 0.95rem;
+    }
+
+    .btn-primary { background: var(--accent); color: white; box-shadow: 0 10px 20px rgba(168, 85, 247, 0.3); }
+    .btn-outline { background: transparent; color: white; border: 1px solid var(--border); }
+    .btn-insta { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2397 75%, #bc1888 100%); color: white; }
+    
+    .btn:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 15px 30px rgba(168, 85, 247, 0.4); }
+
+    section { padding: 5rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+    h2 { font-size: 2.5rem; text-align: center; margin-bottom: 3rem; }
+    h2::after { content: ""; display: block; width: 50px; height: 4px; background: var(--accent); margin: 10px auto; border-radius: 2px; }
+
+    .grid-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .service-card { background: var(--card); padding: 2.5rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+    .service-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+    .service-card i { font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem; }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 3rem;
+      background: var(--card);
+      padding: 3rem;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      align-items: start;
+    }
+
+    .social-side h3 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+    .social-list { list-style: none; }
+    .social-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 1rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: 15px;
+      margin-bottom: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: 0.3s;
+      border: 1px solid transparent;
+    }
+    .social-item:hover { background: rgba(168, 85, 247, 0.1); border-color: var(--border); transform: translateX(5px); }
+    .social-item i { font-size: 1.5rem; width: 30px; text-align: center; }
+
+    .input-group { margin-bottom: 1.5rem; display: flex; flex-direction: column; }
+    label { margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; color: var(--muted); }
+    input, textarea {
+      padding: 1rem;
+      background: #08080c;
+      border: 1px solid #2d2d3d;
+      border-radius: 10px;
+      color: white;
+      font-size: 1rem;
+      width: 100%;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+    .form-note { font-size: 0.8rem; color: var(--accent); margin-bottom: 0.5rem; font-weight: 500; display: block; }
+
+    footer { text-align: center; padding: 3rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem; }
+
+    @media (max-width: 900px) {
+      .contact-container { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="hero-card">
+      <i class="fa-solid fa-wind" style="color: var(--accent); font-size: 2.5rem; margin-bottom: 1rem; filter: drop-shadow(0 0 10px var(--accent));"></i>
+      <h1>Stefan Serwis</h1>
+      <p class="hero-headline">
+        Konsola głośna jak odrzutowiec? <br>
+        Wyślij ją do nas na SPA.
+      </p>
+      
+      <div class="hero-btns">
+        <a href="#uslugi" class="btn btn-outline">
+          <i class="fa-solid fa-list-ul"></i> Zobacz usługi
+        </a>
+        <a href="#kontakt" class="btn btn-primary">
+          <i class="fa-solid fa-calendar-check"></i> Umów teraz
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section id="uslugi">
+    <h2>Profesjonalny Serwis</h2>
+    <div class="grid-services">
+      <div class="service-card">
+        <i class="fa-solid fa-gamepad"></i>
+        <h3>SPA Konsol PlayStation</h3>
+        <p>Twoja konsola chodzi jak <strong>F16 przy starcie?</strong> Wyślij ją do nas – zadbamy o jej wnętrze, Twój święty spokój i uszy Twoich domowników.</p>
+      </div>
+
+      <div class="service-card">
+        <i class="fa-solid fa-laptop"></i>
+        <h3>Serwis i Diagnostyka Laptopów</h3>
+        <p>Niefortunne zalanie? Bateria trzyma krócej niż parzenie kawy? <strong>Nie musisz się o nic martwić</strong> – postawimy sprzęt na nogi profesjonalnie.</p>
+      </div>
+
+      <div class="service-card">
+        <i class="fa-solid fa-screwdriver-wrench"></i>
+        <h3>Inna Elektronika</h3>
+        <p><strong>Lubimy wyzwania, ale nie lubimy zaskoczenia</strong>, dlatego przed każdą naprawą robimy rzetelną wycenę. Napisz – zobaczymy, co da się zrobić ;)</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt">
+    <h2>Napraw swój sprzęt</h2>
+    <div class="contact-container">
+      
+      <div class="social-side">
+        <h3>Spotkasz nas tutaj</h3>
+        <div class="social-list">
+          <a href="https://facebook.com/TWOJA_NAZWA" class="social-item"><i class="fa-brands fa-facebook" style="color: #1877F2;"></i><div><strong>Facebook</strong><br><small>Aktualności i kontakt</small></div></a>
+          <a href="https://instagram.com/TWOJA_NAZWA" class="social-item"><i class="fa-brands fa-instagram" style="color: #E4405F;"></i><div><strong>Instagram</strong><br><small>Zdjęcia z realizacji</small></div></a>
+          <a href="https://tiktok.com/@TWOJA_NAZWA" class="social-item"><i class="fa-brands fa-tiktok" style="color: #fff;"></i><div><strong>TikTok</strong><br><small>Zobacz jak pracujemy</small></div></a>
+          <a href="#" class="social-item"><i class="fa-brands fa-google" style="color: #FBBC05;"></i><div><strong>Google Opinie</strong><br><small>Sprawdź oceny klientów</small></div></a>
+        </div>
+      </div>
+
+      <div class="form-side">
+        <form action="https://formspree.io/f/TWOJE_ID" method="POST">
+          <div class="input-group">
+            <label>Twój nick / imię</label>
+            <input type="text" name="name" placeholder="np. Stefan99" required>
+          </div>
+
+          <div class="input-group">
+            <label>Email kontaktowy</label>
+            <input type="email" name="email" placeholder="twoj@email.pl" required>
+          </div>
+
+          <div class="input-group">
+            <label>Wiadomość</label>
+            <span class="form-note"><i class="fa-solid fa-circle-info"></i> Pamiętaj o modelu (np. PS3 CECH-4204C)</span>
+            <textarea name="message" rows="5" placeholder="Co dolega Twojemu sprzętowi?" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+            Wyślij zapytanie
+          </button>
+          
+          <a href="https://ig.me/m/TWOJA_NAZWA" target="_blank" class="btn btn-insta" style="width: 100%; justify-content: center; margin-top: 15px;">
+            <i class="fa-brands fa-instagram"></i> Napisz na Instagramie
+          </a>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Stefan Serwis
+  </footer>
+
+</body>
+</html>
